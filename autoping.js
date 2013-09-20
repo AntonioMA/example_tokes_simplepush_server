@@ -91,7 +91,11 @@ function AutoPing(aNickname, aInterval, aHost, aPort) {
 
 
   function debug() {
-    console.log.apply(console, arguments);
+    var args = Array.prototype.slice.call(arguments);
+    var format = "(%s) - " + args.shift();
+    args.unshift(new Date().toLocaleString());
+    args.unshift(format);
+    console.log.apply(console, args);
   }
 
   function start() {
