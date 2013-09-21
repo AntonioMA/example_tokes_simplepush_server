@@ -115,6 +115,24 @@ if (process.argv.length < 4) {
   console.log('Error: This must be invoked with at least two arguments.');
   console.log('Usage: node autoping.js nickname interval [host [port]]');
 } else {
+
+  process.on('exit', function() {
+    console.log("Node process exiting!");
+  });
+  var signals = [ 'SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT', 'SIGBUS', 'SIGFPE', 'SIGUSR1',
+                  'SIGSEGV', 'SIGPIPE', 'SIGALRM', 'SIGTERM'];
+  for (var i = 0; i<signals.length; i++) {
+    console.log("Setting handler " + signals[i]);
+    process.on(signals[i], function(aSignal) {
+      console.log(aSignal + " captured! Exiting now");
+      process.exit(1);
+    }.bind(undefined, signals[i]));
+  }
+
+  process.on('SIGINT', function() {
+    console.log("SIGINT captured! Exiting now");
+    process.exit(1);
+  });
   var host = process.argv[4] || HOST;
   var port = process.argv[5] || SERVER_PORT;
   var autoping = new AutoPing(process.argv[2], process.argv[3], host, port);
