@@ -8,7 +8,7 @@ do
   else
     echo "Node not running! Relaunching" &
     LP=$!
-    (nohup node autoping.js Woody 300 localhost 80 >> autoping.${LP}.log 2>&1 &)
+    (nohup node autoping.js Woody 1500 localhost 80 >> autoping.${LP}.log 2>&1 &)
     echo $! > autoping.${LP}.run
   fi
   sleep 60
