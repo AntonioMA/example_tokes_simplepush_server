@@ -3,7 +3,7 @@
 // when the server is shut down. Tough luck.
 
 // Take a guess :P
-var serverPort = 8123;
+var serverPort = 80;
 
 // What we offer:
 //   * GET /about that just says hey, mom, it's me
